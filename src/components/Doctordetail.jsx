@@ -10,13 +10,10 @@ import {
   DoctorHeaderTotal, DoctorHeaderCount, DoctorHeaderCountLabel,
   SummaryGrid, SummaryCard, SummaryIcon,
   SummaryNumber, SummaryLabel,
-  
   EmptySettings, EmptyIcon, EmptyText, EmptySubText, EmptyHint,
 } from '../styles/Doctordetail.styles';
 
 function Doctordetail({ selectedDoctor, onBack }) {
-  console.log(' Doctordetail component loaded!');
-
   const appointments = useSelector(selectAllAppointments);
 
   const doctorPatients = selectedDoctor
@@ -27,7 +24,6 @@ function Doctordetail({ selectedDoctor, onBack }) {
   const docConfirmed = doctorPatients.filter(a => a.status === 'Confirmed').length;
   const docCompleted = doctorPatients.filter(a => a.status === 'Completed').length;
 
- 
   if (!selectedDoctor) {
     return (
       <Wrapper>
@@ -37,7 +33,7 @@ function Doctordetail({ selectedDoctor, onBack }) {
             <EmptyIcon>👨‍⚕️</EmptyIcon>
             <EmptyText>No Doctor Selected</EmptyText>
             <EmptySubText>
-              Please go to <strong>Doctor Overview</strong> and 
+              Please go to <strong>Doctor Overview</strong> and
               click on a doctor card to view their patients.
             </EmptySubText>
             <EmptyHint>Doctor Overview → Click any card → View Patients</EmptyHint>
@@ -49,15 +45,12 @@ function Doctordetail({ selectedDoctor, onBack }) {
 
   return (
     <Wrapper>
-
       <BackBtn onClick={onBack}>← Back to Doctors</BackBtn>
 
- 
       <PageTitle>
         {selectedDoctor.avatar} {selectedDoctor.name} — Patients
       </PageTitle>
 
-   
       <Section>
         <SectionTitle>📊 Appointment Summary</SectionTitle>
 
@@ -74,29 +67,23 @@ function Doctordetail({ selectedDoctor, onBack }) {
         </DoctorHeader>
 
         <SummaryGrid>
-<SummaryGrid>
-  {/* Pending Card */}
-  <SummaryCard $bg="#fffbeb" $border="#fde68a">
-    <SummaryIcon $iconBg="#fef3c7">⏳</SummaryIcon>
-    <SummaryNumber $color="#f59e0b">{docPending}</SummaryNumber>
-    <SummaryLabel $color="#92400e">Pending Appointments</SummaryLabel>
-  </SummaryCard>
+          <SummaryCard $bg="#fffbeb" $border="#fde68a">
+            <SummaryIcon $iconBg="#fef3c7">⏳</SummaryIcon>
+            <SummaryNumber $color="#f59e0b">{docPending}</SummaryNumber>
+            <SummaryLabel $color="#92400e">Pending Appointments</SummaryLabel>
+          </SummaryCard>
 
-  {/* Confirmed Card */}
-  <SummaryCard $bg="#f0fdf4" $border="#bbf7d0">
-    <SummaryIcon $iconBg="#dcfce7">✅</SummaryIcon>
-    <SummaryNumber $color="#10b981">{docConfirmed}</SummaryNumber>
-    <SummaryLabel $color="#065f46">Confirmed Appointments</SummaryLabel>
-  </SummaryCard>
+          <SummaryCard $bg="#f0fdf4" $border="#bbf7d0">
+            <SummaryIcon $iconBg="#dcfce7">✅</SummaryIcon>
+            <SummaryNumber $color="#10b981">{docConfirmed}</SummaryNumber>
+            <SummaryLabel $color="#065f46">Confirmed Appointments</SummaryLabel>
+          </SummaryCard>
 
-  {/* Completed Card */}
-  <SummaryCard $bg="#eff6ff" $border="#bfdbfe">
-    <SummaryIcon $iconBg="#dbeafe">🏁</SummaryIcon>
-    <SummaryNumber $color="#3b82f6">{docCompleted}</SummaryNumber>
-    <SummaryLabel $color="#1e40af">Completed Appointments</SummaryLabel>
-  </SummaryCard>
-</SummaryGrid>
-
+          <SummaryCard $bg="#eff6ff" $border="#bfdbfe">
+            <SummaryIcon $iconBg="#dbeafe">🏁</SummaryIcon>
+            <SummaryNumber $color="#3b82f6">{docCompleted}</SummaryNumber>
+            <SummaryLabel $color="#1e40af">Completed Appointments</SummaryLabel>
+          </SummaryCard>
         </SummaryGrid>
       </Section>
 
@@ -148,7 +135,6 @@ function Doctordetail({ selectedDoctor, onBack }) {
           </PatientTable>
         )}
       </Section>
-
     </Wrapper>
   );
 }

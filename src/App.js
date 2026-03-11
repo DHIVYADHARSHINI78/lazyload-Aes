@@ -1,30 +1,26 @@
 import React, { useState, lazy, Suspense } from 'react';
-import { useSelector, useDispatch } from 'react-redux'; 
-import { selectCurrentDoctor, clearSelectedDoctor, setSelectedDoctor } from './features/doctorSlice'; 
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCurrentDoctor, clearSelectedDoctor, setSelectedDoctor } from './features/doctorSlice';
 import Navbar    from './components/Navbar';
 import StatusBar from './components/StatusBar';
 import { GlobalStyle, AppShell, Content } from './styles/App.styles';
+import AppointmentList from './components/AppointmentList';
 
-
-const AppointmentList = lazy(() => import('./components/AppointmentList'));
-const DoctorOverview  = lazy(() => import('./components/DoctorOverview'));
-const Doctordetail    = lazy(() => import('./components/Doctordetail'));
+const DoctorOverview = lazy(() => import('./components/DoctorOverview'));
+const Doctordetail   = lazy(() => import('./components/Doctordetail'));
 
 function App() {
   const dispatch = useDispatch();
-  
   const selectedDoctor = useSelector(selectCurrentDoctor);
   const [activePage, setActivePage] = useState('appointments');
 
-
   const handleDoctorClick = (doctor) => {
-    dispatch(setSelectedDoctor(doctor)); 
+    dispatch(setSelectedDoctor(doctor));
     setActivePage('Doctordetail');
   };
 
-
-  const handleBack = () => {         
-    dispatch(clearSelectedDoctor()); 
+  const handleBack = () => {
+    dispatch(clearSelectedDoctor());
     setActivePage('doctors');
   };
 
@@ -36,18 +32,9 @@ function App() {
         <Content>
           <StatusBar />
           <Suspense fallback={<div style={{ textAlign: 'center', padding: '60px' }}>Loading...</div>}>
-            
-         
             {activePage === 'appointments' && <AppointmentList />}
-            
-            {activePage === 'doctors' && (
-              <DoctorOverview onDoctorClick={handleDoctorClick} />
-            )}
-            
-            {activePage === 'Doctordetail' && (
-              <Doctordetail selectedDoctor={selectedDoctor} onBack={handleBack} />
-            )}
-            
+            {activePage === 'doctors' && <DoctorOverview onDoctorClick={handleDoctorClick} />}
+            {activePage === 'Doctordetail' && <Doctordetail selectedDoctor={selectedDoctor} onBack={handleBack} />}
           </Suspense>
         </Content>
       </AppShell>
